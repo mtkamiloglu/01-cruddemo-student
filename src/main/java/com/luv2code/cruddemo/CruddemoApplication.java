@@ -22,12 +22,56 @@ public class CruddemoApplication {
 		return runner -> {
 			// createStudent(studentDAO);
 
-			// createMultipleStudents(studentDAO);
+			createMultipleStudents(studentDAO);
 
 			// readStudent(studentDAO);
 
-			queryForStudents(studentDAO);
+			// queryForStudents(studentDAO);
+
+			// queryForStudentsByLastName(studentDAO, "Kamil");
+
+			// updateStudent(studentDAO, 3);
+			
+			// removeStudent(studentDAO, 3);
+
+			// removeAllStudents(studentDAO);
 		};
+	}
+
+	private void removeAllStudents(StudentDAO studentDAO) {
+		System.out.println("Deleting all students...");
+		int numRowsDeleted = studentDAO.deleteAllStudents();
+
+		System.out.println("Deleted row count: " + numRowsDeleted);
+
+	}
+
+	private void removeStudent(StudentDAO studentDAO, Integer id) {
+		System.out.println("Deleting the student with id: " + id);
+
+		studentDAO.deleteStudent(id);
+	}
+
+	private void updateStudent(StudentDAO studentDAO, int studentId){
+		System.out.println("Getting student with the id: "+ studentId);
+
+		Student myStudent = studentDAO.findByID(studentId);
+
+		System.out.println("Updating student...");
+
+		myStudent.setFirstName("Selda");
+		studentDAO.update(myStudent);
+
+		System.out.println("Updated student: " + myStudent);
+
+	}
+
+	private void queryForStudentsByLastName(StudentDAO studentDAO, String lastName) {
+		List<Student> studentList = studentDAO.findByLastName(lastName);
+
+		for (Student theStudent: studentList) {
+			System.out.println(theStudent);
+		}
 	}
 
 	private void queryForStudents(StudentDAO studentDAO) {
